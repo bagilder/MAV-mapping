@@ -1,5 +1,5 @@
 
-% brian gilder did a thing on 30nov2015, 2dec2015
+% brian gilder did a thing on 30nov, 2dec, 3dec2015
 % this will hopefully magically transform into a function that accepts
 % sonar data and builds a magnificent map therewith
 
@@ -7,21 +7,37 @@
 
 %% definitions
 
-W = 12; %width of robot, in whatever length-units we're using. PLACEHOLDER
-sensorDepth = 1.5;  %distance from side of robot to sensor read plane
+W = 14; %width of robot, in whatever length-units we're using. PLACEHOLDER
+sensorDepth = -2;  %distance from side of robot to sensor read plane
 W_eff = W/2 + sensorDepth;
-x_sensor_left = 1;  %dist the sensor is shifted relative to robot center
-x_sensor_right = 1.5; %ditto
+x_sensor_left = -8;  %dist the sensor is shifted relative to robot center
+x_sensor_right = -8; %ditto
 
 %% let's draw a pre-determined map! if we want to
-% scaled using units that match real-world units (cm?)
+% scaled using real-world units (1/2-inch)
 
-line([ ], [ ],'Color','b'); %brute force, if nothing better is available
-line([ ], [ ],'Color','b');
-%etc
+%brute force, if nothing better is available
+line([3 94], [3 3],'Color','b'); %1 
+line([94 94.5], [3 35],'Color','b'); %2
+line([94.5 97.5], [35 35],'Color','b'); %3
+line([97.5 97], [35 3],'Color','b'); %4
+line([97 189], [3 3],'Color','b'); %5
+line([189 189], [3 93],'Color','b'); %6 
+line([189 97], [93 93],'Color','b'); %7 
+line([97 96.5], [93 61],'Color','b'); %8
+line([96.5 93.5], [61 61],'Color','b'); %9
+line([93.5 94], [61 93],'Color','b'); %10
+line([94 47], [93 93],'Color','b'); %11
+line([47 45], [93 31],'Color','b'); %12
+line([45 42], [31 31],'Color','b'); %13
+line([42 44], [31 93],'Color','b'); %14
+line([44 3], [93 93],'Color','b'); %15
+line([3 3], [93 3],'Color','b'); %16
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% What Follows Should Be Put Into A Loopable (External?) Function:
+% What Follows Could Be Put Into A Loopable (External?) Function:
 
 %% magically, data gets passed in
 
@@ -31,11 +47,11 @@ line([ ], [ ],'Color','b');
 
 % %x_R_origin = sdfkj; %probably already the next thing
 % %y_R_origin = sdf;    %probably already the next thing
-robot_x_absolute = 40; %we get sent these, right? x_I
-robot_y_absolute = 6;   % y_I
-theta = (12)*pi/180;   %radians, if the angle is given in (degrees)
-sensorDistLeft = 4; %whatever units the sensors report back
-sensorDistRight = 12;
+robot_x_absolute = 175; %we get sent these, right? x_I
+robot_y_absolute = 16;   % y_I
+theta = (92)*pi/180;   %radians, if the angle is given in (degrees)
+sensorDistLeft = 72; %whatever units the sensors report back
+sensorDistRight = 8;
 
 %% establish wall relative to robot
 
@@ -70,10 +86,10 @@ x_temp_right = pos_I_right(1,1);
 y_temp_right =pos_I_right(2,1)
 
 hold on    % i'm not releasing the hold so we can keep adding to the plot
-plot(x_temp_left,y_temp_left,'ok')
-plot(x_temp_right, y_temp_right,'ok')
-plot(robot_x_absolute, robot_y_absolute,'.r','markersize', 10)
-axis([1  100 -25 75])   %this will either need to be redefined dynamically
+plot(x_temp_left,y_temp_left,'ok','markersize', 2)
+plot(x_temp_right, y_temp_right,'ok','markersize', 2)
+plot(robot_x_absolute, robot_y_absolute,'.r','markersize', 8)
+axis([-30  220 -75 175])   %this will either need to be redefined dynamically
         %or taken out completely   %UNLESS we are also including what we
         %plan to have as the 'predefined' map overlaid. then the overlay
         %will already be roughly the right scale. we will just need to make
